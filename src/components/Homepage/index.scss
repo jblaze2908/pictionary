@@ -1,0 +1,171 @@
+.homepage {
+  &__container {
+    font-family: "Amatic SC", cursive;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    background: rgba(99, 100, 102, 1);
+    min-height: 100vh;
+    background: linear-gradient(
+      to bottom right,
+      rgb(93, 190, 255),
+      rgb(70, 70, 214)
+    );
+  }
+  &__header {
+    @media screen and (max-width: 370px) {
+      font-size: 6rem;
+    }
+    font-size: 7rem;
+    color: #fff;
+    font-weight: 800;
+    margin: 0 1rem;
+    text-shadow: 2px 2px 2px rgba(29, 27, 27, 0.4);
+  }
+  &__username {
+    margin-top: 3rem;
+    @media screen and (max-width: 370px) {
+      margin-top: 2rem;
+    }
+    &-textfield {
+      @media screen and (max-width: 650px) {
+        width: 80%;
+      }
+      @media screen and (max-width: 430px) {
+        width: 90%;
+      }
+      @media screen and (max-width: 370px) {
+        font-size: 1.8rem;
+      }
+      &::placeholder {
+        color: #abc8da86;
+      }
+      padding: 0.4rem 0.6rem;
+      font-size: 2rem;
+      // font-weight: 800;
+      width: 33rem;
+      border-radius: 4px;
+      font-family: "Roboto", sans-serif;
+      border: none;
+      text-align: center;
+      box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  &__btns {
+    @media screen and (max-width: 370px) {
+      margin-top: 2rem;
+    }
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    &-btn {
+      @media screen and (max-width: 370px) {
+        font-size: 2rem;
+      }
+      margin: 0.5rem;
+      background-color: #fff;
+      background: linear-gradient(to top left, #ffffff, #c9dcf5);
+      font-size: 2.3rem;
+      box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #222;
+      font-weight: 800;
+      text-shadow: 2px 2px 2px rgba(212, 203, 203, 0.1);
+    }
+  }
+  &__modal {
+    &-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      backdrop-filter: blur(3px);
+      background-color: rgba(0, 29, 92, 0.356);
+    }
+    &-container {
+      position: absolute;
+      top: 50%;
+      text-shadow: 2px 2px 2px rgba(29, 27, 27, 0.4);
+      font-family: "Amatic SC", cursive;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 800;
+      padding: 3rem 3.5rem;
+      box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      background: linear-gradient(
+        to top left,
+        rgb(93, 190, 255),
+        rgb(189, 189, 241)
+      );
+    }
+    &-header {
+      font-size: 3.5rem;
+      color: #fff;
+      text-align: center;
+    }
+    &-textfield {
+      margin-top: 1rem;
+      font-family: "Roboto", sans-serif;
+      padding: 0.25rem 0.5rem;
+      font-size: 1.9rem;
+      border: none;
+      text-align: center;
+      border-radius: 4px;
+      box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+      &:focus {
+        outline: none;
+      }
+    }
+    &-btn {
+      display: block;
+      margin-top: 1rem;
+      border: none;
+      background-color: #fff;
+      background: linear-gradient(to top left, #ffffff, #c9dcf5);
+      font-size: 1.8rem;
+      box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: "Amatic SC", cursive;
+      font-weight: 800;
+      text-shadow: 2px 2px 2px rgba(212, 203, 203, 0.1);
+      color: #222;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+.wigglebtn {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

@@ -1,0 +1,33 @@
+.paintcanvas__right-playerlist {
+  &-container {
+    box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+    // border: 1px solid red;
+    @media screen and (max-width: 800px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 550px) {
+      width: 100%;
+    }
+  }
+  &-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.7rem;
+    height: 3.75rem;
+    background: linear-gradient(to right, #234bcc, #3f67eb);
+  }
+  @media screen and (max-width: 800px) {
+    height: calc(100% - 3.75rem);
+  }
+  height: 10rem;
+  &-player {
+    padding: 0.25rem 1rem;
+    border-bottom: 1px solid #8893aff6;
+    font-size: 1.3rem;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: space-between;
+  }
+}

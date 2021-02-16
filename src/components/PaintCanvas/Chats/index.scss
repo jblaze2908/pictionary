@@ -1,0 +1,62 @@
+.paintcanvas__right-chats {
+  //   padding-top: 1rem;
+  height: calc(100% - 17.5rem);
+  @media screen and (max-width: 800px) {
+    width: 50%;
+    height: 100%;
+  }
+  @media screen and (max-width: 550px) {
+    width: 100%;
+  }
+  font-size: 1.15rem;
+  &-container {
+    font-family: "Roboto", sans-serif;
+    height: calc(100% - 2.62rem);
+    @media screen and (max-width: 800px) {
+      height: calc(100% - 2.62rem - 3.75rem);
+    }
+  }
+  &-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.7rem;
+    height: 3.75rem;
+    background: linear-gradient(to right, #234bcc, #3f67eb);
+  }
+  &-special {
+    padding: 0.3rem;
+    background-color: rgb(226, 244, 255);
+    border-bottom: 1px solid #5666;
+    // text-align: center;
+    // color: white;
+  }
+  &-chat {
+    display: flex;
+    border-top: 1px solid #5666;
+    border-bottom: 1px solid #5666;
+    padding: 0.3rem;
+    &-sender {
+      font-weight: 500;
+      &::after {
+        margin-left: 0.3rem;
+        margin-right: 0.5rem;
+        content: ":";
+      }
+    }
+  }
+  &-input {
+    font-family: "Roboto", sans-serif;
+    // border: 1px solid rgba(119, 180, 250, 0.658);
+    &-textfield {
+      height: 2.62rem;
+      width: 100%;
+      border: none;
+      font-family: inherit;
+      font-size: 1.2rem;
+      box-shadow: inset 2px 3px 2px rgba(0, 0, 0, 0.15);
+      padding: 0 0.25rem;
+    }
+  }
+}

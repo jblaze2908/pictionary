@@ -1,0 +1,63 @@
+.canvas {
+  &__container {
+    padding: 0;
+    touch-action: none;
+    position: relative;
+    cursor: crosshair;
+    background-color: rgb(224, 236, 255);
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media screen and (min-width: 1000px) {
+      height: 630px;
+      padding: 1rem;
+    }
+    @media screen and (max-width: 1000px) {
+      height: 630px;
+    }
+    @media screen and (max-width: 900px) {
+      height: 595px;
+    }
+    @media screen and (max-width: 840px) {
+      height: 560px;
+    }
+    @media screen and (max-width: 800px) {
+      height: 640px;
+    }
+    @media screen and (max-width: 671px) {
+      height: 585px;
+    }
+    @media screen and (max-width: 615px) {
+      height: 530px;
+    }
+    @media screen and (max-width: 571px) {
+      height: 440px;
+    }
+    @media screen and (max-width: 471px) {
+      height: 385px;
+    }
+    @media screen and (max-width: 420px) {
+      height: 350px;
+    }
+    @media screen and (max-width: 360px) {
+      height: 310px;
+    }
+    // @media screen and (max-width: 470px) {
+    //   height: 3850px;
+    // }
+    // @media screen and (max-width: 570px) {
+    //   height: 407px;
+    // }
+    // @media screen and (max-width: 470px) {
+    //   height: 377px;
+    // }
+    // @media screen and (max-width: 420px) {
+    //   height: 347px;
+    // }
+  }
+  // border: 1px solid red;
+  // width: 100%;
+  background-color: #fff;
+  // display: none;
+}

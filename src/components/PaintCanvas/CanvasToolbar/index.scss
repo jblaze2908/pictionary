@@ -1,0 +1,107 @@
+.canvasToolbar {
+  &__container {
+    margin-top: -2.4px;
+    height: 4rem;
+    background: linear-gradient(to right, #3f67eb, #234bcc);
+  }
+  &__btns {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-left: 2rem;
+  }
+  &__btn {
+    height: 3.3rem;
+    width: 3.3rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 1px 9px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    &-active {
+      box-shadow: inset 2px 1px 9px rgba(0, 0, 0, 0.8);
+    }
+    &-container {
+      position: relative;
+    }
+    &-modal {
+      &-arrow {
+        position: absolute;
+        bottom: -9px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-top: 9px solid #dee3f5;
+      }
+      &-open {
+        z-index: 0;
+        opacity: 1;
+      }
+
+      &-color {
+        top: -10.5rem;
+        border-radius: 9px;
+        left: -8.8rem;
+        height: 8.4rem;
+      }
+      z-index: -1;
+      opacity: 0;
+      padding: 0.5rem 0;
+      transition: all 0.2s;
+      position: absolute;
+      top: -4.5rem;
+      border-radius: 9px;
+      left: -6.4rem;
+      background-color: #d4dcf8;
+      box-shadow: -1px 6px 10px rgba(0, 0, 0, 0.4);
+      height: 2.8rem;
+      padding-left: 0.75rem;
+      &-btns {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        &-color {
+          width: 20rem;
+          flex-wrap: wrap;
+        }
+      }
+      &-btn {
+        cursor: pointer;
+        border: 3px solid black;
+        height: 2rem;
+        background-color: #f7f7f7;
+        margin-right: 0.75rem;
+        width: 2rem;
+        display: flex;
+        justify-content: center;
+        box-shadow: 2px 1px 9px rgba(0, 0, 0, 0.3);
+        align-items: center;
+        border-radius: 50%;
+        &-active {
+          box-shadow: inset 2px 1px 9px rgba(0, 0, 0, 0.8) !important;
+        }
+        &-color {
+          margin-bottom: 0.4rem;
+          font-size: 2rem;
+          border: none;
+          //   box-shadow: 2px 1px 9px rgba(0, 0, 0, 0.5);
+          background-color: transparent;
+          &.canvasToolbar__btn-modal-btn-active {
+            border: 2px solid black;
+          }
+        }
+      }
+    }
+    &:focus {
+      outline: none;
+    }
+    &-size {
+      font-size: 1.25rem;
+    }
+  }
+}
