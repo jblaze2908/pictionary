@@ -147,7 +147,7 @@ class index extends Component {
             </button>
           </div>
         </ReactModal>
-        <div className="homepage__version">v0.12</div>
+        <div className="homepage__version">v0.13</div>
       </div>
     );
   }
