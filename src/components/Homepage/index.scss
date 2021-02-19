@@ -3,6 +3,7 @@
     font-family: "Amatic SC", cursive;
     text-align: center;
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
@@ -143,6 +144,13 @@
       margin-left: auto;
       margin-right: auto;
     }
+  }
+  &__version {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 1.6rem;
+    color: #fff;
+    right: 1rem;
   }
 }
 .wigglebtn {

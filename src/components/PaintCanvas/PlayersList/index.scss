@@ -29,5 +29,12 @@
     font-family: "Roboto", sans-serif;
     display: flex;
     justify-content: space-between;
+    &-name {
+      max-width: calc(100% - 2rem);
+      border: 1px solid red;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 }

@@ -29,6 +29,9 @@ export default class index extends Component {
     this.setState({ colorModal: false });
     this.props.changeColor(color);
   };
+  clearBoard = () => {
+    this.props.clearBoard();
+  };
   colorOptions = [
     "#000000",
     "#575757",
@@ -201,9 +204,15 @@ export default class index extends Component {
                     <i className="fas fa-circle" />
                   </div>
                 ))}
-              </div>
+              </div>{" "}
             </div>
           </div>
+          <button
+            className={"canvasToolbar__btn canvasToolbar__btn-size"}
+            onClick={this.clearBoard}
+          >
+            <i className="fas fa-undo" />
+          </button>
         </div>
       </div>
     );

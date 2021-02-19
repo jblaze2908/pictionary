@@ -4,7 +4,7 @@ let initialState = {
   currentBoard: [],
   chats: [],
   roundDetails: [],
-  timer: 60,
+  timer: "",
   gameOver: false,
 };
 const roomReducer = (state = initialState, action) => {

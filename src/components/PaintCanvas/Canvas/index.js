@@ -165,9 +165,13 @@ class index extends Component {
     }
   };
   paintRecievedData = (data, backedUpCanvas) => {
+    if (data.clear) {
+      this.props.clearBoard();
+      return;
+    }
     let size = this.getSizeAccordingToCase(this.canvasCase);
     let ratio = size / this.getSizeAccordingToCase(data.canvasCase);
-    console.log(ratio);
+
     let offsetX, offsetY, x, y;
     if (backedUpCanvas) {
       x = data.start.offsetX * ratio;
@@ -179,7 +183,6 @@ class index extends Component {
       offsetY = data.offsetY * ratio;
       x = data.x * ratio;
       y = data.y * ratio;
-      console.log(x + " " + y + " " + ratio);
     }
     this.ctx.lineWidth = data.size;
     if (data.mode === "pen") {

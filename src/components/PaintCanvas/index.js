@@ -26,49 +26,58 @@ class index extends Component {
   }
   componentDidMount = () => {
     this.socket = socket;
+    // if (!this.props.room.roomId) {
+    //   setTimeout(() => {
+    //     this.socket.emit(
+    //       "getRoomDetails",
+    //       this.props.match.params.roomId,
+    //       (response) => {
+    //
+    //         this.props.loadRoomDetails(response.roomDetails);
+    //       }
+    //     );
+    //   }, 1000);
+    // }
     this.socket.on("newChatMessage", (sender, text) => {
-      console.log(sender + " " + text);
+      console.log(this.props.room.chats);
       this.props.loadRoomDetails({
         ...this.props.room,
         chats: [...this.props.room.chats, { sender, text }],
       });
       // if (!sender) {
-      //   console.log("loading room data");
+      //
       //   this.socket.emit("getRoomDetails", (response) => {
-      //     console.log(response);
+      //
       //     this.props.loadRoomDetails(response.roomDetails);
       //   });
       // }
-    });
-    this.socket.on("playerJoined", (details, score) => {
-      this.props.loadRoomDetails({
-        ...this.props.room,
-        players: [...this.props.room.players, { ...details, score: score }],
-      });
     });
     this.socket.on("chooseWord", (words) => {
       this.setState({ words, showChooseWordDialog: true });
     });
     this.socket.on("nextRoundStarting", (username, sessionId) => {
-      let canvas = document.querySelector("#canvas");
-      const context = canvas.getContext("2d");
-      context.clearRect(0, 0, canvas.width, canvas.height);
       this.props.loadRoomDetails({
         ...this.props.room,
         timer: 60,
         currentBoard: [],
       });
-
-      console.log(username);
     });
     this.socket.on("updateRound", (room) => {
-      this.props.loadRoomDetails(room);
+      console.log(room);
+      this.props.loadRoomDetails({ ...this.props.room, ...room });
+      if (room.currentBoard && room.currentBoard.length === 0) {
+        let canvas = document.querySelector("#canvas");
+        if (canvas) {
+          const context = canvas.getContext("2d");
+          context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
     });
     this.socket.on("startingIn", (time) => {
       this.setState({ time: time });
     });
     this.socket.on("timerUpdate", (time) => {
-      this.props.loadRoomDetails({ ...this.props.room, timer: time });
+      // this.props.loadRoomDetails({ ...this.props.room, timer: time });
     });
   };
   togglePenEraser = (pen) => {
@@ -85,6 +94,15 @@ class index extends Component {
   };
   sendChatMsg = (msg) => {
     this.socket.emit("newMessage", msg);
+  };
+  sendClearBoardReq = () => {
+    this.socket.emit("drawData", { clear: true });
+    this.clearBoard();
+  };
+  clearBoard = () => {
+    let canvas = document.querySelector("#canvas");
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
   };
   sendPaintData = (data) => {
     this.socket.emit("drawData", data);
@@ -128,18 +146,12 @@ class index extends Component {
         return "You are picking a word.";
       else if (lsRound.chosenBy === sessionId && lsRound.chosenWord !== "")
         return 'You are drawing "' + lsRound.chosenWord + '".';
-      else if (
-        lsRound.chosenBy !== this.socket.sessionId &&
-        lsRound.chosenWord === ""
-      ) {
+      else if (lsRound.chosenBy !== sessionId && lsRound.chosenWord === "") {
         return (
           this.getPlayerUsernameFromSessionId(lsRound.chosenBy) +
           " is picking a word."
         );
-      } else if (
-        lsRound.chosenBy !== this.socket.sessionId &&
-        lsRound.chosenWord !== ""
-      ) {
+      } else if (lsRound.chosenBy !== sessionId && lsRound.chosenWord !== "") {
         return (
           this.getPlayerUsernameFromSessionId(lsRound.chosenBy) +
           ' is drawing "' +
@@ -165,6 +177,7 @@ class index extends Component {
               currentBoard={this.props.room.currentBoard}
               timerValue={this.props.room.timer}
               canIDraw={canIDraw}
+              clearBoard={this.clearBoard}
             />
             <CanvasToolbar
               togglePenEraser={this.togglePenEraser}
@@ -173,6 +186,7 @@ class index extends Component {
               size={this.state.size}
               changeSize={this.changeSize}
               changeColor={this.changeColor}
+              clearBoard={this.sendClearBoardReq}
             />
           </div>
           <div className="paintcanvas__right">
@@ -184,7 +198,10 @@ class index extends Component {
           </div>
         </div>
         <ReactModal
-          isOpen={this.state.showChooseWordDialog}
+          isOpen={
+            this.state.showChooseWordDialog &&
+            this.props.room.players.length !== 1
+          }
           className="paintcanvas__modal"
           overlayClassName="paintcanvas__overlay"
         >

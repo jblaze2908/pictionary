@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactModal from "react-modal";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { loadRoomDetails } from "../../actions/index";
+import { leaveRoom, loadRoomDetails } from "../../actions/index";
 import socket from "../../config/socket";
 import "./index.scss";
 let timeout = null;
@@ -19,6 +19,13 @@ class index extends Component {
   }
   componentDidMount = () => {
     this.socket = socket;
+    if (this.props.room.roomId) {
+      this.props.leaveRoom();
+      this.socket.emit("leaveRoom", (response) => {
+        // if (response.status === 200) {
+        // }
+      });
+    }
   };
   toggleJoinModal = () => {
     if (this.state.username)
@@ -35,6 +42,7 @@ class index extends Component {
   };
   joinRoom = (room) => {
     let status;
+    console.log(room);
     this.socket.emit("joinRoom", room, (response) => {
       status = response.status;
       console.log(response);
@@ -139,6 +147,7 @@ class index extends Component {
             </button>
           </div>
         </ReactModal>
+        <div className="homepage__version">v0.12</div>
       </div>
     );
   }
@@ -152,6 +161,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       loadRoomDetails,
+      leaveRoom,
     },
     dispatch
   );
