@@ -14,6 +14,16 @@
     font-weight: 800;
     background: linear-gradient(to left, #3f67eb, #234bcc);
     color: #fff;
+    @media screen and (max-width: 500px) {
+      width: 4rem;
+      height: 4rem;
+      font-size: 3.1rem;
+    }
+    @media screen and (max-width: 400px) {
+      width: 3.5rem;
+      height: 3.5rem;
+      font-size: 2.7rem;
+    }
   }
   &__value {
   }

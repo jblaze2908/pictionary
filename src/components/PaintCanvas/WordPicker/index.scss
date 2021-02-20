@@ -1,6 +1,7 @@
 .wordpicker {
   &__container {
     width: 30rem;
+    max-width: 90vw;
     // border: 1px solid red;
     font-family: "Amatic SC", cursive;
     text-shadow: 2px 2px 2px rgba(29, 27, 27, 0.4);

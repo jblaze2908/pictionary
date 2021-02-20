@@ -9,6 +9,7 @@ export default class index extends Component {
           {this.props.words.map((word) => (
             <div
               className="wordpicker__word"
+              key={word + "-word"}
               onClick={() => {
                 this.props.chooseWord(word);
               }}

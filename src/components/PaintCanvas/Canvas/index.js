@@ -135,10 +135,6 @@ class index extends Component {
     if (this.props.canIDraw) this.isPainting = true;
     this.prevPos = { offsetX, offsetY };
   };
-  // onMouseMove = (e) => {
-  //
-  // };
-
   onMouseMove = (e) => {
     const { nativeEvent } = e;
     if (this.isPainting) {
@@ -166,12 +162,12 @@ class index extends Component {
   };
   paintRecievedData = (data, backedUpCanvas) => {
     if (data.clear) {
+      this.line = [];
       this.props.clearBoard();
       return;
     }
     let size = this.getSizeAccordingToCase(this.canvasCase);
     let ratio = size / this.getSizeAccordingToCase(data.canvasCase);
-
     let offsetX, offsetY, x, y;
     if (backedUpCanvas) {
       x = data.start.offsetX * ratio;
@@ -246,7 +242,6 @@ class index extends Component {
   endPaintEvent = () => {
     if (this.isPainting) {
       this.isPainting = false;
-      // this.sendPaintData();
     }
   };
   sendPaintData = (x, y, offsetX, offsetY, color, mode, size, canvasCase) => {
@@ -268,21 +263,9 @@ class index extends Component {
           id="canvas"
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onMouseDown}
-          onMouseMove={(e) => {
-            // e.preventDefault();
-
-            this.onMouseMove(e);
-          }}
-          onTouchMove={(e) => {
-            // e.preventDefault();
-            // console.log
-
-            this.onMouseMove(e);
-          }}
-          onTouchEnd={(e) => {
-            // e.preventDefault();
-            this.endPaintEvent(e);
-          }}
+          onMouseMove={this.onMouseMove}
+          onTouchMove={this.onMouseMove}
+          onTouchEnd={this.endPaintEvent}
           onMouseUp={this.endPaintEvent}
           onMouseLeave={this.endPaintEvent}
         ></canvas>

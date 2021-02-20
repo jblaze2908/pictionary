@@ -26,34 +26,12 @@ class index extends Component {
   }
   componentDidMount = () => {
     this.socket = socket;
-    // if (!this.props.room.roomId) {
-    //   setTimeout(() => {
-    //     this.socket.emit(
-    //       "getRoomDetails",
-    //       this.props.match.params.roomId,
-    //       (response) => {
-    //
-    //         this.props.loadRoomDetails(response.roomDetails);
-    //       }
-    //     );
-    //   }, 1000);
-    // }
     this.socket.on("newChatMessage", (sender, text) => {
       console.log(this.props.room.chats);
       this.props.loadRoomDetails({
         ...this.props.room,
         chats: [...this.props.room.chats, { sender, text }],
       });
-      // if (!sender) {
-      //
-      //   this.socket.emit("getRoomDetails", (response) => {
-      //
-      //     this.props.loadRoomDetails(response.roomDetails);
-      //   });
-      // }
-    });
-    this.socket.on("chooseWord", (words) => {
-      this.setState({ words, showChooseWordDialog: true });
     });
     this.socket.on("nextRoundStarting", (username, sessionId) => {
       this.props.loadRoomDetails({
@@ -64,7 +42,7 @@ class index extends Component {
     });
     this.socket.on("updateRound", (room) => {
       console.log(room);
-      this.props.loadRoomDetails({ ...this.props.room, ...room });
+      this.props.loadRoomDetails(room);
       if (room.currentBoard && room.currentBoard.length === 0) {
         let canvas = document.querySelector("#canvas");
         if (canvas) {
@@ -77,7 +55,7 @@ class index extends Component {
       this.setState({ time: time });
     });
     this.socket.on("timerUpdate", (time) => {
-      // this.props.loadRoomDetails({ ...this.props.room, timer: time });
+      this.props.loadRoomDetails({ ...this.props.room, timer: time });
     });
   };
   togglePenEraser = (pen) => {
@@ -96,8 +74,10 @@ class index extends Component {
     this.socket.emit("newMessage", msg);
   };
   sendClearBoardReq = () => {
-    this.socket.emit("drawData", { clear: true });
-    this.clearBoard();
+    if (this.canIDraw()) {
+      this.socket.emit("drawData", { clear: true });
+      this.clearBoard();
+    }
   };
   clearBoard = () => {
     let canvas = document.querySelector("#canvas");
@@ -126,7 +106,7 @@ class index extends Component {
   canIDraw = () => {
     let sessionId = sessionStorage.getItem("uuid") || "";
     let room = this.props.room;
-    if (room.players.length === 1) return true;
+    if (room.gameState === "PAUSED") return true;
     else {
       if (room.roundDetails.length === 0) return true;
       let lsRound = room.roundDetails[room.roundDetails.length - 1];
@@ -138,9 +118,9 @@ class index extends Component {
   getHeaderText = () => {
     let sessionId = sessionStorage.getItem("uuid") || "";
     let room = this.props.room;
-    if (room.players.length === 1) return "Waiting for players...";
+    if (room.gameState === "PAUSED") return "Waiting for players...";
     else {
-      if (room.roundDetails.length === 0) return "";
+      if (room.roundDetails.length === 0) return "Starting Game...";
       let lsRound = room.roundDetails[room.roundDetails.length - 1];
       if (lsRound.chosenBy === sessionId && lsRound.chosenWord === "")
         return "You are picking a word.";
@@ -164,6 +144,10 @@ class index extends Component {
   render() {
     let canIDraw = this.canIDraw();
     let headerText = this.getHeaderText();
+    let currentRound =
+      this.props.room.roundDetails.length !== 0
+        ? this.props.room.roundDetails[this.props.room.roundDetails.length - 1]
+        : null;
     return (
       <div className="paintcanvas__page">
         <div className="paintcanvas__container">
@@ -199,17 +183,24 @@ class index extends Component {
         </div>
         <ReactModal
           isOpen={
-            this.state.showChooseWordDialog &&
-            this.props.room.players.length !== 1
+            (currentRound &&
+              currentRound.wordsSent.length !== 0 &&
+              currentRound.chosenWord === "") ||
+            false
           }
+          ariaHideApp={false}
           className="paintcanvas__modal"
           overlayClassName="paintcanvas__overlay"
         >
-          <WordPicker words={this.state.words} chooseWord={this.chooseWord} />
+          <WordPicker
+            words={currentRound ? currentRound.wordsSent : []}
+            chooseWord={this.chooseWord}
+          />
         </ReactModal>
         <ReactModal
           isOpen={this.state.time !== 0}
           className="paintcanvas__modal"
+          ariaHideApp={false}
           overlayClassName="paintcanvas__overlay"
         >
           <GameStartingPopup time={this.state.time} />

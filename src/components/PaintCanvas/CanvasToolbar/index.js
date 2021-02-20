@@ -49,7 +49,7 @@ export default class index extends Component {
     "#804b19",
     "#f9bbd0",
     "#f44236",
-    "#f9bbd0",
+    "#f13666",
     "#ffffff",
   ];
   render() {
@@ -196,6 +196,7 @@ export default class index extends Component {
                         ? " canvasToolbar__btn-modal-btn-active"
                         : "")
                     }
+                    key={"color" + color}
                     style={{ color: color }}
                     onClick={() => {
                       this.changeColor(color);

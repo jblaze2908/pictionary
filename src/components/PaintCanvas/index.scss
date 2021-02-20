@@ -76,12 +76,26 @@
       background: linear-gradient(to right, #3f67eb, #234bcc);
       color: #fff;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
       font-size: 2.8rem;
       text-shadow: 2px 2px 2px rgba(29, 27, 27, 0.4);
       letter-spacing: 2px;
       font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+      @media screen and (max-width: 600px) {
+        font-size: 2.5rem;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 2.3rem;
+      }
+      @media screen and (max-width: 400px) {
+        font-size: 2.1rem;
+      }
     }
   }
   &__right {

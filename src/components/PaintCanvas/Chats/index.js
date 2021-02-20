@@ -18,7 +18,10 @@ export default class index extends Component {
           {this.props.chats.map((chat) => {
             if (chat.sender)
               return (
-                <div className="paintcanvas__right-chats-chat">
+                <div
+                  className="paintcanvas__right-chats-chat"
+                  key={chat.sender + chat.text}
+                >
                   <div className="paintcanvas__right-chats-chat-sender">
                     {chat.sender}
                   </div>
@@ -29,7 +32,10 @@ export default class index extends Component {
               );
             else
               return (
-                <div className="paintcanvas__right-chats-special">
+                <div
+                  className="paintcanvas__right-chats-special"
+                  key={chat.sender + chat.text}
+                >
                   {/* <div className="paintcanvas__right-chats-chat-sender">Jai</div> */}
                   <div className="paintcanvas__right-chats-chat-message">
                     {chat.text}
